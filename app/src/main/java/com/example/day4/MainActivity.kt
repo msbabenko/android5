@@ -9,6 +9,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,13 +38,14 @@ class MainActivity : AppCompatActivity() {
                 else Integer.valueOf(year)
 
             var maskedLang = if (lang.isNullOrEmpty()) ""
-                else lang
+                else lang[0].uppercaseChar() + lang.substring(1)
+                .lowercase(Locale.getDefault())
 
             CoroutineScope(Dispatchers.IO).launch {
                 val decodedJsonResult = httpApiService.getBooks()
                 val books = decodedJsonResult.toList()
 
-                val filteredBooks = books.filter { it.year > maskedYear && it.language == maskedLang }
+                val filteredBooks = books.filter { it.year >= maskedYear && it.language == maskedLang }
 
                 val booksAsString = StringBuilder("")
 
