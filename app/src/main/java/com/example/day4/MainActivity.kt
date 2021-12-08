@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import com.example.day4.data.AppDatabase
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -25,6 +26,7 @@ class MainActivity : AppCompatActivity() {
         val myApplication = application as MyApplication
         val httpApiService = myApplication.httpApiService
 
+        val dao = AppDatabase.getInstance(this).authorDao()
 
 
         button.setOnClickListener{
