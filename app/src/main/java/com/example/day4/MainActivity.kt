@@ -13,7 +13,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,7 +41,7 @@ class MainActivity : AppCompatActivity() {
 
             dao.insertAllAuthors(*authorsList.toTypedArray())
 
-            var booksList  = mutableListOf<Book>()
+            val booksList  = mutableListOf<Book>()
 
             x=1
             for (item in books) {
@@ -70,16 +69,16 @@ class MainActivity : AppCompatActivity() {
         }
 
         button.setOnClickListener{
-            var year = yearTextView.editText?.text?.toString()
-            var author = languageTextView.editText?.text?.toString()
+            val year = yearTextView.editText?.text?.toString()
+            val author = languageTextView.editText?.text?.toString()
 
             yearTextView.editText?.text?.clear()
             languageTextView.editText?.text?.clear()
 
-            var maskedYear = if (year.isNullOrEmpty()) 2222
+            val maskedYear = if (year.isNullOrEmpty()) 2222
                 else Integer.valueOf(year)
 
-            var maskedAuthor = if (author.isNullOrEmpty()) ""
+            val maskedAuthor = if (author.isNullOrEmpty()) ""
                 else author
 
 
@@ -90,7 +89,7 @@ class MainActivity : AppCompatActivity() {
 
                 var filteredBooks =
                     if (result.isNullOrEmpty() || result[0].books.isNullOrEmpty())
-                        listOf<Book>()
+                        listOf()
                     else result[0].books
 
                 if (filteredBooks.isNullOrEmpty())
@@ -106,7 +105,7 @@ class MainActivity : AppCompatActivity() {
 
                 withContext(Dispatchers.Main){
                     resultTextView.text = booksAsString
-                    countTextView.text = filteredBooks?.size.toString() + " book(s) by " + author
+                    countTextView.text = filteredBooks.size.toString() + " book(s) by " + author
                 }
 
             }
