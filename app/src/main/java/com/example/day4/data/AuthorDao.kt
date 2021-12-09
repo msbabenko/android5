@@ -4,15 +4,21 @@ import androidx.room.*
 
 @Dao
 interface AuthorDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAuthor(vararg authors: Author)
-
-
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertBook(book: Book)
+    fun insertAllAuthors(vararg authors: Author)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAllBooks(vararg books: Book)
+
+
+    @Query("SELECT * FROM authors")
+    fun getAuthors(): List<Author>
+
+    @Query("SELECT * FROM books")
+    fun getBooks(): List<Book>
 
     @Transaction
-    @Query("SELECT * FROM authors WHERE id = :id")
-    suspend fun getAuthorWithBooks(id: Int): List<AuthorWithBooks>
+    @Query("SELECT * FROM authors WHERE name = :author")
+    fun getAuthorWithBooks(author: String): List<AuthorWithBooks>
 }
