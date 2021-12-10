@@ -85,6 +85,7 @@ class MainActivity : AppCompatActivity() {
             CoroutineScope(Dispatchers.IO).launch {
 
                 val booksAsString = StringBuilder("")
+
                 val result : List<AuthorWithBooks> =  dao.getAuthorWithBooks(maskedAuthor)
 
                 var filteredBooks =
@@ -99,7 +100,7 @@ class MainActivity : AppCompatActivity() {
                         filteredBooks = result[0].books.filter { it.year >= maskedYear }
 
                     var x: Int = 1
-                    for (item in filteredBooks)
+                    for (item in filteredBooks.take(3))
                        booksAsString.append((x++).toString() + ") "+ item.title + " #" + item.id + " " + item.year +"\n")
                 }
 
