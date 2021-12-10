@@ -6,6 +6,6 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "authors")
 data class Author(
     @PrimaryKey
-    val id: Int,
+    val id: Int ,
     val name: String
 )
